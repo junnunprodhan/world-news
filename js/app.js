@@ -10,15 +10,21 @@ const displayData=(newsCategories)=>{
     // console.log(newsCategories)
     const categoriesContainer = document.getElementById('show-all-categories');
     newsCategories.forEach(newsCategory => {
+        console.log(newsCategory.category_id)
        const list = document.createElement('div');
        list.classList.add('mx-4');
-       list.innerText =` ${newsCategory.category_name}`;
+       list.innerHTML =`
+       <p>${newsCategory.category_id} </p>
+       ${newsCategory.category_name}`;
        categoriesContainer.appendChild(list);
     });
 }
+
 newsDataLoad()
 
-
+document.getElementById('show-all-categories').addEventListener('click',function(even){
+    console.log(even.target.innerText)
+})
 
 
 
