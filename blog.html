@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+     <!-- bootstrap cdn link  -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body class="container mt-4">
+    <header>
+        <h1 class="text-center text-primary">All Blogs</h1>
+    </header>
+    <main>
+        <article class="mt-4">
+            <h3 class="text-primary">1:Difference between var let and const</h3>
+            <ul>
+                <li>
+                    var declarations are globally scoped or function scoped while let and const are block scoped.  
+                </li>
+                <li>
+                    var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; const variables can neither be updated nor re-declared.
+                </li>
+                <li>
+                    They are all hoisted to the top of their scope. But while var variables are initialized with undefined, let and const variables are not initialized.
+                </li>
+                <li>
+                    While var and let can be declared without being initialized, const must be initialized during declaration.
+                </li>
+            </ul>
+        </article>
+        <article class="mt-4">
+            <h3 class="text-primary">2:The Difference Between Regular Functions and Arrow Functions</h3>
+            <ul>
+                <li>
+                    A programmer can get the same result as regular functions by writing a few lines of code using arrow functions.
+
+                    Curly brackets are not required if only one expression is present.
+
+                    // Regular function ES5:
+                    var add = function(a, b) {  return a + b;};
+                    // Arrow function ES6
+                    let add = (a, b) => { return a + b};
+                    //or
+                    let add = (a, b) => a + b;
+                </li>
+                <li>
+                    Arguments binding:
+                    arguments object inside the regular functions contains the list of arguments.
+
+                    // Object with Regular function
+                    let showData = {
+                        showArg: function(){
+                        console.log(arguments);
+                        }  
+                    }
+                    showData.showArg(1,2,3); // output {0:1,1:2,2:3}
+                    The arrow function, on the opposite, doesn’t define arguments i.e. they do not have arguments binding.
+
+                    // Object with Arrow function
+                    let showData = {
+                        showArg: ()=>console.log(arguments);
+                    }
+                    showData.showArg(1,2,3); 
+                    // Uncaught ReferenceError: arguments is not defined
+                    But you can easily access the arrow function arguments using a rest parameter ...args.
+
+                    // using rest parameters
+                    let showData = {
+                        showArg: (...args)=>console.log(args);
+                    }
+                    myFunc.showArgs(1, 2, 3, 4); // [1, 2, 3, 4]
+                </li>
+                <li>
+                    Use of this keyword :
+                    Inside of a regular JavaScript function, this value is dynamic. The dynamic context means that the value of this depends on how the function is invoked.
+
+                    let name ={ 
+                        fullName:'abc',
+                        printInRegular: function(){
+                            console.log(`My Name is ${this.fullName}`);
+                        },       
+                        printInArrow:()=>console.log(`My Name is ${this.fullName}`)
+                    } 
+                    name.printInRegular();   // My Name is abc
+                    name.printInArrow();     // My Name is undefined
+                    The behavior of this inside of an arrow, function differs considerably from the regular function’s this behavior as an arrow function does not have its own “this” keyword.
+
+                    The value of this inside an arrow function remains the same throughout the lifecycle of the function and is always bound to the value of this in the closest non-arrow parent function which means No matter how or where being executed, this value inside of an arrow function always equals this value from the outer function.
+
+                    const myObject = {
+                    myMethod(items) {
+                    console.log(this); // logs myObject 
+                    const callback = () => {
+                        console.log(this); // this takes value from myMethod(outer func)    
+                    };
+                    items.forEach(callback);
+                    }
+                    };
+
+                    myObject.myMethod([1, 2, 3]);
+                </li>
+            </ul>
+        </article>
+        <article class="mt-4">
+            <h3 class="text-primary">3: Difference between var let and const</h3>
+            <ul>
+                <li>
+                    forEach:
+                    .forEach(), is used to execute the same code on every element in an array but does not change the array and it returns undefined.
+                    Example:
+                    In the example below we would use .forEach() to iterate over an array of food and log that we would want to eat each of them.
+                <li>
+                    map():
+                    .map() executes the same code on every element in an array and returns a new array with the updated elements.
+                    Example:
+                    In the example below we would use .map to iterate over the elements of the cost array and divide each element by 10, then assign our new array containing the new cost to the variable newCost.
+                </li>
+                <li>
+                    filter():
+                    .filter() checks every element in an array to see if it meets a certain criteria and returns a new array with the elements that return truthy for the criteria.
+                    Example:
+                    In the example below we would use .filter to return values that are less than 200.
+                </li>
+                <li>
+                    find():
+                    find() When you want to select a single element from an array.
+                </li>
+            </ul>
+        </article>
+        <article class="mt-4">
+            <h3 class="text-primary">1:Difference between var let and const</h3>
+            <ul>
+                <li>
+                    Template literals allow variables in strings:  
+                </li>
+                <li>
+                    Automatic replacing of variables with real values is called string interpolation.
+                </li>
+                <li>
+                    Template literals, on the other hand, are written by surrounding the string with the backtick character, or grave accent (`):
+                </li>
+                <li>
+                    In this section, you will first run through the way strings with multiple lines were declared before ES6, then see how template literals make this easier.
+                </li>
+            </ul>
+        </article>
+    </main>
+      <!-- bootstrap javascript cdn link  -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
