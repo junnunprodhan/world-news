@@ -14,6 +14,8 @@ const displayData=(newsCategories)=>{
        list.classList.add('bg');
        list.innerHTML =`
       <a onclick="loadNews('${newsCategory.category_id}')" class="nav-link" href"a"> ${newsCategory.category_name}</a>`;
+      // spinner start 
+      toggleSpinner(true)
        categoriesContainer.appendChild(list);
     });
 }
@@ -26,12 +28,14 @@ const loadNews=(id)=>{
 }
 
 const displayNews=(news)=>{
-    console.log(news)
+  const itemCount = document.getElementById('items-count')
+  const newsFound = document.getElementById('news-found')
+  itemCount.innerText = news.length;
+    console.log(news.length)
   const cardContainer =document.getElementById('card-container');
   cardContainer.textContent='';
   news.forEach(news => {
-    const {image_url,thumbnail_url,title,total_view} = news;
-    console.log(news.author.img)
+    const {image_url,title,total_view,details} = news;
     const cardInfo = document.createElement('div');
     cardInfo.classList.add('row', 'g-0');
     cardInfo.innerHTML=`
@@ -41,7 +45,7 @@ const displayNews=(news)=>{
                   <div class="col-md-8">
                     <div class="card-body">
                       <h5 class="card-title">${title}</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                      <p class="card-text">${details.slice(0,450)}</p>
                       <div class="d-flex justify-content-around">
                         <div class="d-flex">
                             <div>
@@ -49,14 +53,14 @@ const displayNews=(news)=>{
                             </div>
                             <div class="ms-2">
                                 <h5>${news.author.name ? news.author.name :'Not Found'}</h5>
-                                <p>22-09-23</p>
+                                <p>${news.author.published_date? news.author.published_date :'not found' }</p>
                             </div>
                         </div>
                         <div>
-                            <h4>1.M</h4>
+                            <h5>views : ${total_view? total_view :'No view'}</5>
                         </div>
                         <div>
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal">Show Details
+                            <button onclick="loadNewsDetails('${news._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal">Show Details
                             </button>
                         </div>
                       </div>
@@ -64,33 +68,29 @@ const displayNews=(news)=>{
                   </div>
     `
     cardContainer.appendChild(cardInfo);
+    // spinner stop 
+    toggleSpinner(false)
   });
+}
 
+const loadNewsDetails =(news_id)=>{
+  // console.log(news_id)
+  const url=`https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a`
+  console.log(url)
+  fetch(url)
+  .then(res=>res.json())
+  .then(data=>console.log(data))
+}
+
+const toggleSpinner = isLoading =>{
+  const loader = document.getElementById('loader');
+  if(isLoading){
+      loader.classList.remove('d-none')
+  }
+  else{
+      loader.classList.add('d-none')
+  }
 }
 
 
 newsDataLoad()
-// document.getElementById('show-all-categories').addEventListener('click',function(even){
-//     console.log(even.target.innerText)
-// })
-
-
-
-
-// const newsDataLoad=()=>{
-// fetch('https://openapi.programming-hero.com/api/news/categories')
-//     .then(res => res.json())
-//     .then(data => displayNews(data.data.news_category))
-//     .catch(error => console.log(error));
-// }
-// const displayNews = News => {
-//     const showAll = document.getElementById('show-categories');
-//     News.forEach(news => {
-//         console.log(news.category_name)
-//         const list = document.createElement('li');
-//         list.classList.add('list-group-item');
-//         list.innerText = ${news.category_name};
-//         showAll.appendChild(list);
-//     })
-
-// }
