@@ -10,12 +10,10 @@ const displayData=(newsCategories)=>{
     // console.log(newsCategories)
     const categoriesContainer = document.getElementById('show-all-categories');
     newsCategories.forEach(newsCategory => {
-        console.log(newsCategory.category_id)
        const list = document.createElement('div');
-       list.classList.add('mx-4');
+       list.classList.add('bg');
        list.innerHTML =`
-       <p>${newsCategory.category_id} </p>
-       ${newsCategory.category_name}`;
+      <a class="nav-link" href"a"> ${newsCategory.category_name}</a>`;
        categoriesContainer.appendChild(list);
     });
 }
