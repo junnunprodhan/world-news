@@ -39,14 +39,18 @@
     <hr>
     <main class="mt-4 bg-light">
         <!-- categories section start -->
-        <section class="container">
-                <ul id="show-all-categories" class="d-flex justify-content-around">
+        <section class="container-fluid">
+                <div id="show-all-categories" class="d-lg-flex justify-content-around">
 
-                </ul>
+                </div>
         </section>
         <!-- item found section start  -->
-        <section  class="container mt-4">
-            <h3 id="new-found" class="text-center">News found : <span id="items-count">0</span></h3>
+        <section  class="container mt-4 bg-white p-4">
+            <h3 class="text-center"> <span id="news-found">News found :</span> <span id="items-count">0</span></h3>
+            <!-- no news found message  -->
+            <div id="not-fount-message" class="d-none container">
+                <h1 class="text-red text-center">This categories news not found</h1>
+            </div>
         </section>
         <!-- item found section end  -->
 
