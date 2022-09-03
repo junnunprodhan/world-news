@@ -71,16 +71,27 @@ const displayNews=(news)=>{
 }
 
 const loadNewsDetails =(news_id)=>{
-  console.log(news_id)
-  const url=` https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a`
-  console.log(url)
+  const url=`https://openapi.programming-hero.com/api/news/${news_id}`;
   fetch(url)
-  .then(res=>res.json())
-  .then(data=>showDetailsNews(data))
+  .then(res => res.json())
+  .then(data => showDetailsNews(data.data))
 }
 
 const showDetailsNews = (data)=>{
   console.log(data)
+  const cardTitle = document.getElementById('detailsModalLabel')
+  cardTitle.innerText= data[0].title;
+  const modalBody = document.getElementById('modal-body');
+  modalBody.innerHTML=`
+  <div class="card">
+    <img src="${data[0].thumbnail_url}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <p class="card-text">${data[0].details}</p>
+      <p class="card-text"> author name :${data[0].author.name? data[0].author.name:'not found'}</p>
+      <p class="card-text">publish date : ${data[0].author.published_date? data[0].author.published_date:'not found'}</p>
+    </div>
+  </div>
+  `
 }
 
 const toggleSpinner = isLoading =>{
