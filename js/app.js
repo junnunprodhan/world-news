@@ -17,10 +17,9 @@ const displayData = (newsCategories)=>{
        listDiv.classList.add('list-group','d-flex')
        listDiv.innerHTML =`
       <a onclick="loadNews('${newsCategory.category_id}')" class="nav-link" href"a"> ${newsCategory.category_name}</a>`;
-      // spinner start 
-      // toggleSpinner(true)
        categoriesContainer.appendChild(listDiv);
     });
+    // spinner stop 
      toggleSpinner(false)
 }
 
@@ -40,10 +39,12 @@ const displayNews=(news)=>{
   if(news.length===0){
     itemCount.innerText ='No news found';
     newsFound.classList.add('d-none');
+    toggleSpinner(false)
   }
   else{
     newsFound.classList.remove('d-none');
     itemCount.innerText = news.length;
+    toggleSpinner(true)
   }
   // const allNews = news.sort((a,b)=>b-a);
   const cardContainer =document.getElementById('card-container');
@@ -53,16 +54,16 @@ const displayNews=(news)=>{
   news.forEach(news => {
     const {image_url,title,total_view,details,thumbnail_url} = news;
     const cardInfo = document.createElement('div');
-    cardInfo.classList.add('row', 'g-0');
+    cardInfo.classList.add('row', 'g-0','mt-4','shadow');
     cardInfo.innerHTML=`
-    <div class="col-md-4 bg-light">
+    <div class="col-md-4">
       <img src="${thumbnail_url}" class="img-fluid rounded-start" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">${title}</h5>
         <p class="card-text details">${details.slice(0,450)}<span class="text-primary">...</span></p>
-        <div class="d-flex justify-content-around">
+        <div class="d-flex justify-content-around mt-4">
           <div class="d-flex">
             <div>
               <img style="width:50px; height:50px" src="${news.author.img}" alt="">
@@ -73,7 +74,7 @@ const displayNews=(news)=>{
           </div>
         </div>
         <div>
-          <h5>views : ${total_view? total_view  :'No view'}<span>M</span></5>
+          <h5><i class="fa-regular fa-eye"></i> ${total_view? total_view  :'No view'}<span>M</span></5>
         </div>
         <div>
           <button onclick="loadNewsDetails('${news._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal">Show Details
@@ -112,7 +113,6 @@ const showDetailsNews = (data)=>{
     </div>
   </div>
   `
-
 }
 
 const toggleSpinner = isLoading =>{
@@ -124,13 +124,5 @@ const toggleSpinner = isLoading =>{
       loader.classList.add('d-none')
   }
 }
-
-// document.getElementById('show-all-categories').addEventListener('mouseenter',function(event){
-//   const category = event.target;
-
-//   category.classList.add('bg-primary','px-4','py-2','text-white');
-
-  
-// })
 
 newsDataLoad()
